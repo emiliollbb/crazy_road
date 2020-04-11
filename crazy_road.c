@@ -107,7 +107,7 @@ int main()
 	
 	load_background();
 	
-	//load_sprites();
+    load_sprites();
 		
     // Init Display
     REG_DISPCNT= DCNT_MODE0 | DCNT_BG0 | DCNT_OBJ | DCNT_OBJ_1D;
