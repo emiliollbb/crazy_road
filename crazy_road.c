@@ -29,16 +29,15 @@ OBJ_AFFINE *obj_aff_buffer= (OBJ_AFFINE*)obj_buffer;
 struct game_s game;
 
 void init_game() {
-    int i=0;
     game.objects=0;
     
     game.car.x=10;
     game.car.y=10;
     game.car.vx=1;
-        game.car.vy=0;
-        game.car.e=1;
-        game.car.object=&obj_buffer[game.objects++];
-    obj_set_attr(car.object, 
+    game.car.vy=0;
+    game.car.e=1;
+    game.car.object=&obj_buffer[game.objects++];
+    obj_set_attr(game.car.object, 
 			ATTR0_SQUARE,
 			ATTR1_SIZE_32,
 			ATTR2_PALBANK(0) | 0);
