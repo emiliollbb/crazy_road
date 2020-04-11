@@ -17,6 +17,7 @@ CC      := $(CROSS)gcc
 LD      := $(CROSS)gcc
 OBJCOPY := $(CROSS)objcopy
 
+all: crazy_road.gba
 
 background.c :
 	grit background.png -gu16 -gB4 -mLs -ftc
