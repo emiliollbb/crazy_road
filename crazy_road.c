@@ -21,6 +21,7 @@ struct game_s {
     struct car_s car;
     int objects;
     u32 frame;
+    int road_pos;
 };
 
 OBJ_ATTR obj_buffer[128];
@@ -31,8 +32,8 @@ struct game_s game;
 void init_game() {
     game.objects=0;
     
-    game.car.x=10;
-    game.car.y=10;
+    game.car.x=110;
+    game.car.y=80;
     game.car.vx=1;
     game.car.vy=0;
     game.car.e=1;
@@ -44,13 +45,20 @@ void init_game() {
 }
 
 void render_frame() {
-  obj_set_pos(game.car.object, game.car.x, game.car.y);
+    obj_set_pos(game.car.object, game.car.x, game.car.y);
   
-  oam_copy(oam_mem, obj_buffer, game.objects);
+    oam_copy(oam_mem, obj_buffer, game.objects);
+  
+	// Move road
+    REG_BG0VOFS=game.road_pos;
 }
 
 void update_game() {
+   game.car.x += 2*key_tri_horz();
    
+    // Move road
+	game.road_pos-=1;
+
 }
 
 
@@ -80,7 +88,7 @@ void load_background() {
 	
     // set up BG0 for a 4bpp 64x32t map, using
 	//   using charblock 0 and screenblock 31
-	REG_BG0CNT= BG_CBB(0) | BG_SBB(30) | BG_4BPP | BG_REG_64x32;
+	REG_BG0CNT= BG_CBB(0) | BG_SBB(30) | BG_4BPP | BG_MOSAIC | BG_REG_64x32;
 	
 	// Backround H scroll
 	REG_BG0HOFS= 0;
@@ -121,7 +129,7 @@ int main()
 		game.frame++;
 		key_poll();
 
-		//update_game();
+		update_game();
 		render_frame();
 	}
 
